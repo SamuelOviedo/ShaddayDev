@@ -24,15 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response = curl_exec($ch);
     curl_close($ch);
 
-    echo "Datos enviados correctamente.";
+    // Verificar la respuesta de Google Sheets
+    if ($response === "ok") {
+        echo "Datos enviados correctamente.";
+    } else {
+        echo "Error al enviar los datos al archivo.";
+    }
 } else {
     echo "Acceso no autorizado.";
 }
 ?>
 
-?>
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -46,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <div class="container mt-5">
-        <h2>Formulario de Registro</h2>
+        <h2>Jóvenes Shadday</h2>
         <form action="form.php" method="post">
             <div class="form-group">
                 <label for="nombreCompleto">Nombre Completo:</label>
