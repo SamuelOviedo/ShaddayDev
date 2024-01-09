@@ -21,19 +21,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['entry' => $lineaDatos]));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
     $response = curl_exec($ch);
+    $error = curl_error($ch);
     curl_close($ch);
 
     // Verificar la respuesta de Google Sheets
     if ($response === "ok") {
         echo "Datos enviados correctamente.";
     } else {
-        echo "Error al enviar los datos al archivo.";
+        echo "Error al enviar los datos al archivo. Detalles: " . $error;
     }
 } else {
     echo "Acceso no autorizado.";
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
