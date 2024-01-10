@@ -9,7 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fechaNacimientoObj = new DateTime($fechaNacimiento);
     $hoy = new DateTime();
     $edad = $hoy->diff($fechaNacimientoObj)->y;
-    echo $edad;
 }
 ?>
 
@@ -27,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <div class="container mt-5">
-        <h2>Jóvenes Shadday</h2>
+        <h2>Censo Jóvenes de Santidad</h2>
         <form action="form.php" method="post">
             <div class="form-group">
                 <label for="nombreCompleto">Nombre Completo:</label>
