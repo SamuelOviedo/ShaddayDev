@@ -9,33 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fechaNacimientoObj = new DateTime($fechaNacimiento);
     $hoy = new DateTime();
     $edad = $hoy->diff($fechaNacimientoObj)->y;
-
-    // Crear una fila de datos separada por comas
-    $lineaDatos = "$nombreCompleto, $fechaNacimiento, $direccion, $telefono, $edad";
-
-    // URL del archivo CSV en línea vinculado a Google Sheets
-    $urlArchivoCSV = "https://docs.google.com/spreadsheets/d/1tgpmj4zpEcdHLGtMlAHjMwWSjtInBs1vTX1AcsE4GN8/gviz/tq?tqx=out:csv";
-
-    // Enviar los datos al archivo CSV usando cURL
-    $ch = curl_init($urlArchivoCSV);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(['entry' => $lineaDatos]));
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-    $response = curl_exec($ch);
-    $error = curl_error($ch);
-    curl_close($ch);
-
-    // Verificar la respuesta de Google Sheets
-    if ($response === "ok") {
-        echo "Datos enviados correctamente.";
-    } else {
-        echo "Error al enviar los datos al archivo. Detalles: " . $error;
-    }
-} else {
-    echo "Acceso no autorizado.";
+    echo $edad;
 }
 ?>
 
