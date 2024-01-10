@@ -1,16 +1,44 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombreCompleto = $_POST["nombreCompleto"];
-    $fechaNacimiento = $_POST["fechaNacimiento"];
-    $direccion = $_POST["direccion"];
-    $telefono = $_POST["telefono"];
+// Establece la conexión a la base de datos
+$host = "http://38.7.30.178/"; // Por ejemplo, localhost
+$dbname = "censo_jovenes";
+$username = "postgres";
+$password = "Jefazo2024";
 
-    // Calcular la edad a partir de la fecha de nacimiento
-    $fechaNacimientoObj = new DateTime($fechaNacimiento);
-    $hoy = new DateTime();
-    $edad = $hoy->diff($fechaNacimientoObj)->y;
+try {
+    $conn = new PDO("pgsql:host=$host;dbname=$dbname;user=$username;password=$password");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Verifica si la solicitud es de tipo POST
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Obtén los datos del formulario
+        $nombreCompleto = $_POST["nombreCompleto"];
+        $fechaNacimiento = $_POST["fechaNacimiento"];
+        $direccion = $_POST["direccion"];
+        $telefono = $_POST["telefono"];
+
+        // Calcular la edad a partir de la fecha de nacimiento
+        $fechaNacimientoObj = new DateTime($fechaNacimiento);
+        $hoy = new DateTime();
+        $edad = $hoy->diff($fechaNacimientoObj)->y;
+
+        // Prepara la consulta SQL para la inserción
+        $sql = "INSERT INTO jovenes (nombre, fecha_nacimiento, edad, direccion, numero_telefono) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+
+        // Ejecuta la consulta con los parámetros
+        $stmt->execute([$nombreCompleto, $fechaNacimiento, $edad, $direccion, $telefono]);
+
+        echo "Datos almacenados correctamente en la base de datos.";
+    }
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
 }
+
+// Cierra la conexión a la base de datos
+$conn = null;
 ?>
+
 
 
 <!DOCTYPE html>
