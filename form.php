@@ -18,8 +18,8 @@
                 // Este es un archivo de prueba PHP
 
                 // Definimos algunas variables
-                $nombre = "Juan";
-                $edad = 25;
+                $nombre = "Samuel";
+                $edad = 22;
 
                 // Imprimimos un mensaje usando las variables
                 echo "<p>Hola, mi nombre es $nombre y tengo $edad años.</p>";
