@@ -11,7 +11,7 @@
 
 <body>
     <div class="container">
-        <h1 class="mt-5">Prueba PHP con Bootstrap</h1>
+        <h1 class="mt-5">Prueba PHP</h1>
         <div class="row">
             <div class="col-md-6">
                 <?php
